@@ -1,30 +1,23 @@
-# banner-test project
+# Reproducer for 7462
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+I actually can't reproduce.
+I built quarkus master
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+    cd quarkus
+    ./mvnw clean install -DskipTests
 
-## Running the application in dev mode
+Then on this project
 
-You can run your application in dev mode that enables live coding using:
-```
-./mvnw quarkus:dev
-```
+    cd banner-test
+    ./mvnw quarkus:dev
 
-## Packaging and running the application
+Then hit the following URL
 
-The application is packageable using `./mvnw package`.
-It produces the executable `banner-test-1.0-SNAPSHOT-runner.jar` file in `/target` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
+http://localhost:8080/greeting/init
+for the initial object creation
 
-The application is now runnable using `java -jar target/banner-test-1.0-SNAPSHOT-runner.jar`.
+http://localhost:8080/greeting/second
+for the read only showing no version increment
 
-## Creating a native executable
-
-You can create a native executable using: `./mvnw package -Pnative`.
-
-Or you can use Docker to build the native executable using: `./mvnw package -Pnative -Dquarkus.native.container-build=true`.
-
-You can then execute your binary: `./target/banner-test-1.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/building-native-image-guide .
+http://localhost:8080/greeting/third
+showing how the version increment upon changes
